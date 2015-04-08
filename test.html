@@ -2,14 +2,20 @@
 <html>
     <head>
         <title>test</title>
-        <link href="css1.css" rel="stylesheet" />
         <meta charset="utf8"/>
+        <link href="css/style.css" rel="stylesheet" />
         <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAFw0lDRKsdCra15LPvIxvehRjMgnVhZHmNh95BVtUkp0XgfXLlhSXfnSAP-eiQqfEOGaImc_V_dSQGQ" type="text/javascript"></script>
-        <script src="carte.js" type="text/javascript"></script>
-        <script src="prix.js" type="text/javascript"></script>
+        <script src="js/jquery-1.11.2.js" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf-8">
+        var Mediroad = {};
+        </script>
+        <script src="js/views/MainView.js" type="text/javascript"></script>
+        <script src="js/models/PriceModel.js" type="text/javascript"></script>
+        <script src="js/map.js" type="text/javascript"></script>
+        <script src="js/price.js" type="text/javascript"></script>
     </head>
-    <body onLoad="initialize();" onUnload="GUnload()">
-        <form id="monFormulaire" method="post" onSubmit="setDirections(this.from.value, this.to.value, 'fr'); return false;" >  
+    <body onLoad="initialize()" onUnload="GUnload()">
+        <form id="monFormulaire" method="post" onSubmit="setDirections(this.from.value, this.to.value, 'fr'); return false;" >
             <table id="début">
                 <tr>
                 <div id='entreprise'>
@@ -29,7 +35,7 @@
                 </div>
                     <td><strong> Votre envie : </strong></td>
                     <td>
-                        <input type="radio" name="statut" id="statut" value="entreprise" onclick="afficherChoix('entreprise')">Frais d'entreprise 
+                        <input type="radio" name="statut" id="statut" value="entreprise" onclick="afficherChoix('entreprise')">Frais d'entreprise
                         <input type="radio" name="statut" id="statut" value="particulier" onclick="afficherChoix('particulier')">Calcul du prix moyen d'essence
                     </td>
                 </tr>
@@ -39,9 +45,8 @@
                 </tr>
                 <tr>
                     <td><strong>Arrivée :</strong></td>
-                    <td><input type="text" id="toAddress" name="to" size="50"></td>   
+                    <td><input type="text" id="toAddress" name="to" size="50"></td>
                     <td><input name="itineraire" type="submit" value="Itinéraire"/></td>
-                    
                 <tr>
                     <td><strong>Kilométrage :</strong></td>
                     <td><input type="text" id="km" size="10" disabled ></td>
@@ -68,7 +73,6 @@
                         <td><div id="map_canvas" class="print"></div></td>
                     </tr>
                 </table>
-                
             </div>
     </body>
 </html>
