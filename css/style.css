@@ -2,9 +2,6 @@ body {
     font-family: Arial, Verdana, sans serif;
     font-size: 11px; margin: 2px; 
  }
- #entreprise {
-     visibility: hidden;
- }
  #début tr td select {
      width:383px;
  }  
