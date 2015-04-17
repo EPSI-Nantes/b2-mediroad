@@ -13,8 +13,9 @@ function initialize() {
     map.addControl(new GOverviewMapControl());
     map.addControl(new GScaleControl());
     map.enableScrollWheelZoom();
-        $('#particulier').fadeOut();
+    
     $('#particulier').fadeOut();
+    
     $('#entreprise').fadeIn();
   }
 }
