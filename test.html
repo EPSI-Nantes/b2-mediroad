@@ -1,44 +1,87 @@
+@@ -0,0 +1,125 @@
 <!DOCTYPE HTML PUBLIC>
 <html>
     <head>
         <title>test</title>
-        <meta charset="utf8"/>
+        <meta charset="utf-8"/>
         <link href="css/style.css" rel="stylesheet" />
         <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAFw0lDRKsdCra15LPvIxvehRjMgnVhZHmNh95BVtUkp0XgfXLlhSXfnSAP-eiQqfEOGaImc_V_dSQGQ" type="text/javascript"></script>
         <script src="js/jquery-1.11.2.js" type="text/javascript"></script>
         <script type="text/javascript" charset="utf-8">
-        var Mediroad = {};
+            var Mediroad = {};
+            var increment = 1;
         </script>
         <script src="js/views/MainView.js" type="text/javascript"></script>
         <script src="js/models/PriceModel.js" type="text/javascript"></script>
         <script src="js/map.js" type="text/javascript"></script>
         <script src="js/price.js" type="text/javascript"></script>
+        <script>
+//function cloneDiv(divClassName) {
+//        var clone    = $('#' + divClassName).clone();
+//        
+//        $(clone).attr('id', $(clone).attr('id') + increment);
+//        $(clone).find('#fromAddress').attr('id', "fromAddress" + increment);
+//        $(clone).find('#toAddress').attr('id', "toAddress" + increment);
+//        $(clone).find('#km').attr('id', "km" + increment);
+//        $(clone).find('#pricewithCV').attr('id', "pricewithCV" + increment).;
+//        $(clone).find('#directions').attr('id', "directions" + increment);
+//        $(clone).find('#map_canvas').attr('id', "map_canvas" + increment);
+//        $(clone).find('#newItineraire').attr('id', "newItineraire" + increment)
+//        
+//        changeStyle($(clone).find('#directions'),$(clone).find('#map_canvas'));
+//        clone.appendTo('body');
+//        
+//        increment++;
+//      }
+//      function changeStyle(directions, map_canvas){
+//          directions.style.overflow: auto;
+//          directions.style.text-align: left;
+//          directions.style.font-size: 9px;
+//          directions.style.height: 500px;
+//          
+//      }
+</script>
     </head>
     <body onLoad="initialize()" onUnload="GUnload()">
-        <form id="monFormulaire" method="post" onSubmit="setDirections(this.from.value, this.to.value, 'fr'); return false;" >
-            <table id="début">
-                <tr>
-                <div id='entreprise'>
+        <form id="monFormulaire" method="post" onSubmit="setDirections(this.from.value, this.to.value, 'fr');return false;">
+                        <table>
+                <td><strong> Votre envie : </strong></td>
+                <td>
+                    <input type="radio" name="statut" id="statut1" value="entreprise" checked="checked" onclick="Mediroad.views.main.checkRadio1('statut1')">entreprise 
+                    <input type="radio" name="statut" id="statut2" value="particulier" onclick="Mediroad.views.main.checkRadio2('statut2')">particulier
+                </td>
+            </table>
+            <div id="entreprise">
+                <table>
                     <td><strong>Puissance de votre voiture :</strong></td>
                     <td><select name="puissance" id="puissance">
-                        <option value="3CV">3CV et moins</option>
-                        <option value="4CV">4CV</option>
-                        <option value="5CV">5CV</option>
-                        <option value="6CV">6CV</option>
-                        <option value="7CV">7CV et plus</option>
-                    </select></td>
+                            <option value="3CV">3CV et moins</option>
+                            <option value="4CV">4CV</option>
+                            <option value="5CV">5CV</option>
+                            <option value="6CV">6CV</option>
+                            <option value="7CV">7CV et plus</option>
+                        </select></td>
                     <td></td>
-                </div>
-                <div id='particulier'>
+                </table>
+            </div>
+            <div id='particulier'>
+                <table>
+                    <tr>
                     <td><strong>Consommation de la voiture :</strong></td>
-                    <td><input type="number" step="0.1" size="50"></td>
-                </div>
-                    <td><strong> Votre envie : </strong></td>
-                    <td>
-                        <input type="radio" name="statut" id="statut" value="entreprise" onclick="afficherChoix('entreprise')">Frais d'entreprise
-                        <input type="radio" name="statut" id="statut" value="particulier" onclick="afficherChoix('particulier')">Calcul du prix moyen d'essence
-                    </td>
-                </tr>
+                    <td><input type="number" id="conso" step="0.1" size="50"></td>
+                    <td><strong>prix de l'essence</strong></td>
+                    <td><input type="number" id="fuel" step="0.01" size="50" value="1.395"></td>
+                    </tr>
+                    <tr>
+                    <td><strong>nb de personne : </strong></td>
+                    <td><input type="number" id="nbPeople" step="1" size="10" min="1" value="1"></td>
+                    <td><strong>prix par personne : </strong></td>
+                    <td><input type="text" id="prixDiv" size="10" disabled></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tab_it">
+            <table id="début">
                 <tr>
                     <td><strong>Départ :</strong></td>
                     <td><input type="text" id="fromAddress" name="from" size="50"></td>
@@ -46,22 +89,23 @@
                 <tr>
                     <td><strong>Arrivée :</strong></td>
                     <td><input type="text" id="toAddress" name="to" size="50"></td>
-                    <td><input name="itineraire" type="submit" value="Itinéraire"/></td>
+                    <td><input name="itineraire" type="submit" value="Itinéraire" /></td>
+                </tr>
                 <tr>
                     <td><strong>Kilométrage :</strong></td>
                     <td><input type="text" id="km" size="10" disabled ></td>
                 </tr>
                 <tr>
                     <td><strong>Prix du trajet:</strong></td>
-                    <td><input type="text" id="prix_avec_calcul_CV" size="10" disabled ></td>
+                    <td><input type="text" id="pricewithCV" size="10" disabled ></td>
                 </tr>
             </table>
-            <div id="tab_it1">
+            
                 <table id="itineraire">
                     <tr>
                         <th>Itinéraire détaillé</th>
                     </tr>
-                   <tr>
+                    <tr>
                         <td><div id="directions"></td>
                     </tr>
                 </table>
@@ -73,6 +117,10 @@
                         <td><div id="map_canvas" class="print"></div></td>
                     </tr>
                 </table>
+                    
             </div>
+        </form>   
+<!--        <input name="newItineraire" id="newItineraire" type="submit" value="ajouter itinéraire" onclick="cloneDiv('tab_it')"/>-->
+        
     </body>
 </html>
