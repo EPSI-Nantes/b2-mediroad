@@ -1,7 +1,6 @@
 'use strict';
 
 (Mediroad.views = Mediroad.views || {}).main = {
-    
   updateKmInput: function (distanceKm) {
     $('#km').val(distanceKm + ' km');
   },

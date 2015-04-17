@@ -46,5 +46,4 @@
        
        return distanceKm /100 * conso * fuel;
    }
-
 };

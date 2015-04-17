@@ -13,7 +13,7 @@ function initialize() {
     map.addControl(new GOverviewMapControl());
     map.addControl(new GScaleControl());
     map.enableScrollWheelZoom();
-    
+        $('#particulier').fadeOut();
     $('#particulier').fadeOut();
     $('#entreprise').fadeIn();
   }
@@ -42,8 +42,8 @@ function handleErrors() {
 function onGDirectionsLoad() {
   var distanceKm = gdir.getDistance().meters / 1000;
   Mediroad.views.main.updateKmInput(distanceKm);
-  
-  
+
+
   if (document.getElementById("statut1").checked === true)
     {
         var price = Mediroad.models.price.compute(distanceKm, Mediroad.views.main.getPower());
