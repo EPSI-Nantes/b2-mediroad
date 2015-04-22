@@ -45,5 +45,9 @@
    particulier: function (distanceKm, conso, fuel) {
        
        return distanceKm /100 * conso * fuel;
-   }
+   },
+//   totalPrice: function (increment) {
+//       for each(var i in increment)
+//       $("#")
+//   }
 };

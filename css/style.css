@@ -2,25 +2,25 @@ body {
     font-family: Arial, Verdana, sans serif;
     font-size: 11px; margin: 2px; 
  }
- #début tr td select {
+ #debut1 tr td select {
      width:383px;
  }  
  
- #itineraire {
+ .itineraire {
      display : inline-block;
      width: 49%;
  }
-#directions {                 
+.directions {                 
     overflow: auto; 
     text-align: left; 
     font-size: 9px; 
     height: 500px;
 }     
-#tab_map {
+.tab_map {
     display : inline-block;
     width : 49%;
 }
-#map_canvas {                              
+.map_canvas {                              
     width: 100%; 
     height: 500px;
 }   

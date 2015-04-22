@@ -1,49 +1,26 @@
-@@ -0,0 +1,125 @@
+
 <!DOCTYPE HTML PUBLIC>
 <html>
     <head>
         <title>test</title>
         <meta charset="utf-8"/>
         <link href="css/style.css" rel="stylesheet" />
+        <script>
+            
+        </script>
         <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAFw0lDRKsdCra15LPvIxvehRjMgnVhZHmNh95BVtUkp0XgfXLlhSXfnSAP-eiQqfEOGaImc_V_dSQGQ" type="text/javascript"></script>
         <script src="js/jquery-1.11.2.js" type="text/javascript"></script>
         <script type="text/javascript" charset="utf-8">
             var Mediroad = {};
-            var increment = 1;
+            var i = 1;
         </script>
         <script src="js/views/MainView.js" type="text/javascript"></script>
         <script src="js/models/PriceModel.js" type="text/javascript"></script>
         <script src="js/map.js" type="text/javascript"></script>
         <script src="js/price.js" type="text/javascript"></script>
-        <script>
-//function cloneDiv(divClassName) {
-//        var clone    = $('#' + divClassName).clone();
-//        
-//        $(clone).attr('id', $(clone).attr('id') + increment);
-//        $(clone).find('#fromAddress').attr('id', "fromAddress" + increment);
-//        $(clone).find('#toAddress').attr('id', "toAddress" + increment);
-//        $(clone).find('#km').attr('id', "km" + increment);
-//        $(clone).find('#pricewithCV').attr('id', "pricewithCV" + increment).;
-//        $(clone).find('#directions').attr('id', "directions" + increment);
-//        $(clone).find('#map_canvas').attr('id', "map_canvas" + increment);
-//        $(clone).find('#newItineraire').attr('id', "newItineraire" + increment)
-//        
-//        changeStyle($(clone).find('#directions'),$(clone).find('#map_canvas'));
-//        clone.appendTo('body');
-//        
-//        increment++;
-//      }
-//      function changeStyle(directions, map_canvas){
-//          directions.style.overflow: auto;
-//          directions.style.text-align: left;
-//          directions.style.font-size: 9px;
-//          directions.style.height: 500px;
-//          
-//      }
-</script>
     </head>
-    <body onLoad="initialize()" onUnload="GUnload()">
-        <form id="monFormulaire" method="post" onSubmit="setDirections(this.from.value, this.to.value, 'fr');return false;">
+    <body onLoad="initialize(); Mediroad.views.main.firstDisplay()" onUnload="GUnload()">
+        <form id="monFormulaire" method="post" onSubmit="setDirections($('#fromAddress1').val(), $('#toAddress1').val(), 'fr');return false;">
                         <table>
                 <td><strong> Votre envie : </strong></td>
                 <td>
@@ -80,47 +57,55 @@
                     </tr>
                 </table>
             </div>
-            <div id="tab_it">
-            <table id="début">
+            <div id="tab_it1">
+            <table id="debut1">
                 <tr>
                     <td><strong>Départ :</strong></td>
-                    <td><input type="text" id="fromAddress" name="from" size="50"></td>
+                    <td><input type="text" id="fromAddress1" name="from" size="50"></td>
                 </tr>
                 <tr>
                     <td><strong>Arrivée :</strong></td>
-                    <td><input type="text" id="toAddress" name="to" size="50"></td>
+                    <td><input type="text" id="toAddress1" name="to" size="50"></td>
                     <td><input name="itineraire" type="submit" value="Itinéraire" /></td>
                 </tr>
                 <tr>
                     <td><strong>Kilométrage :</strong></td>
-                    <td><input type="text" id="km" size="10" disabled ></td>
+                    <td><input type="text" id="km1" size="10" disabled ></td>
                 </tr>
                 <tr>
                     <td><strong>Prix du trajet:</strong></td>
-                    <td><input type="text" id="pricewithCV" size="10" disabled ></td>
+                    <td><input type="text" id="priceN1" size="10" disabled ></td>
+                </tr>
+                <tr id="idTotalPrice">
+                    <td><strong>Prix total du trajet :</strong></td>
+                    <td><input type="text" id="totalPrice" size="10" disabled></td>
                 </tr>
             </table>
             
-                <table id="itineraire">
+                <table class="itineraire" id="itineraire1">
                     <tr>
                         <th>Itinéraire détaillé</th>
                     </tr>
                     <tr>
-                        <td><div id="directions"></td>
+                        <td><div class="directions" id="directions1"></td>
                     </tr>
                 </table>
-                <table id="tab_map">
+                <table class="tab_map" id="tab_map1">
                     <tr>
                         <th>Carte</th>
                     </tr>
                     <tr>
-                        <td><div id="map_canvas" class="print"></div></td>
+                        <td><div class="map_canvas" id="map_canvas1"></div></td>
                     </tr>
                 </table>
                     
             </div>
-        </form>   
-<!--        <input name="newItineraire" id="newItineraire" type="submit" value="ajouter itinéraire" onclick="cloneDiv('tab_it')"/>-->
-        
+        </form>
+        <table id="otherItineraire">
+            <td><strong>Ajouter un itinéraire : </strong></td>
+            <td><input type="submit" onclick="Mediroad.views.main.creationDiv()"></td>
+        </table>
+        <div class="container"></div>
     </body>
+    
 </html>
